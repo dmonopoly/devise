@@ -53,7 +53,13 @@ class Devise::SessionsController < DeviseController
   # If there is no signed in user, it will set the flash message and redirect
   # to the after_sign_out path.
   def verify_signed_out_user
+    puts '-----------------------------------------'
+    puts "verify_signed_out_user"
+    puts '-----------------------------------------'
     if all_signed_out?
+      puts '-----------------------------------------'
+      puts "all signed out"
+      puts '-----------------------------------------'
       set_flash_message :notice, :already_signed_out if is_flashing_format?
 
       respond_to_on_destroy
@@ -61,6 +67,9 @@ class Devise::SessionsController < DeviseController
   end
 
   def all_signed_out?
+    puts '-----------------------------------------'
+    puts "all_signed_out keys: #{Devise.mappings.keys}"
+    puts '-----------------------------------------'
     users = Devise.mappings.keys.map { |s| warden.user(scope: s, run_callbacks: false) }
 
     users.all?(&:blank?)
